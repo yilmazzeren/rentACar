@@ -1,9 +1,11 @@
 package yzeren.rentACar.business.abstracts;
 
-import yzeren.rentACar.entities.concretes.Brand;
+import yzeren.rentACar.business.requests.CreateBrandRequest;
+import yzeren.rentACar.business.responses.GetAllBrandsResponse;
 
 import java.util.List;
 
 public interface BrandService {
-    List<Brand> getAll();
+    List<GetAllBrandsResponse> getAll();
+    void add(CreateBrandRequest createBrandRequest);
 }

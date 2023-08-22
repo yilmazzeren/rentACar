@@ -3,10 +3,14 @@ package yzeren.rentACar.business.concretes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import yzeren.rentACar.business.abstracts.BrandService;
+import yzeren.rentACar.business.requests.CreateBrandRequest;
+import yzeren.rentACar.business.responses.GetAllBrandsResponse;
 import yzeren.rentACar.dataAccess.abstracts.BrandRepository;
 import yzeren.rentACar.entities.concretes.Brand;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service // Bu sınıf bir business nesnesidir
 public class BrandManager implements BrandService {
@@ -18,8 +22,23 @@ public class BrandManager implements BrandService {
     }
 
     @Override
-    public List<Brand> getAll() {
-        System.out.println(brandRepository);
-        return brandRepository.getAll();
+    public List<GetAllBrandsResponse> getAll() {
+        List<Brand> brands = brandRepository.findAll();
+        List<GetAllBrandsResponse> brandsResponse = new ArrayList<GetAllBrandsResponse>();
+        for (Brand brand:brands) {
+            GetAllBrandsResponse responseItem = new GetAllBrandsResponse();
+            responseItem.setId(brand.getId());
+            responseItem.setName(brand.getName());
+            brandsResponse.add(responseItem);
+        }
+        return brandsResponse;
     }
+
+    @Override
+    public void add(CreateBrandRequest createBrandRequest) {
+        Brand brand = new Brand();
+        brand.setName(createBrandRequest.getName());
+        this.brandRepository.save(brand);
+    }
+
 }
