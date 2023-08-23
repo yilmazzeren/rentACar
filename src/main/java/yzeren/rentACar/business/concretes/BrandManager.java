@@ -39,8 +39,7 @@ public class BrandManager implements BrandService {
 
     @Override
     public void add(CreateBrandRequest createBrandRequest) {
-        /*Brand brand = new Brand();
-        brand.setName(createBrandRequest.getName());*/
+
         Brand brand = this.modelMapperService.forRequest().map(createBrandRequest,Brand.class); // createBrandRequest'i brand tipine çevir. aslında brand class'ını newleyip bize veriyor
         this.brandRepository.save(brand);
     }
