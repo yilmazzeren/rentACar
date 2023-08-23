@@ -23,14 +23,6 @@ public class BrandManager implements BrandService {
     @Override
     public List<GetAllBrandsResponse> getAll() {
         List<Brand> brands = brandRepository.findAll();
-        /*List<GetAllBrandsResponse> brandsResponse = new ArrayList<GetAllBrandsResponse>();
-        for (Brand brand:brands) {
-            GetAllBrandsResponse responseItem = new GetAllBrandsResponse();
-            responseItem.setId(brand.getId());
-            responseItem.setName(brand.getName());
-            brandsResponse.add(responseItem);
-        }*/
-
         // stream listeyi dolaşır => forEach ile aynı
         List<GetAllBrandsResponse> brandsResponse = brands.stream().map(brand -> this.modelMapperService.forResponse().map(brand,GetAllBrandsResponse.class)).collect(Collectors.toList());
         return brandsResponse;
