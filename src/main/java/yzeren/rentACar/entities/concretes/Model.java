@@ -10,23 +10,26 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Table(name="brands")
+@Table(name="models")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Brand {
+public class Model {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // id oto artan
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
 
     @Column(name="name")
     private String name;
 
-    @OneToMany(mappedBy = "brand") // mappedBy=> model nesnesinde neyle ilişkilendirilir= brand ile
-    private List<Model> models;
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
 
+    @OneToMany(mappedBy = "model")
+    private List<Car> cars;
 }
