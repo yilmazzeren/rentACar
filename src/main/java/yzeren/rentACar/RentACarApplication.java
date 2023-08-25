@@ -28,7 +28,7 @@ public class RentACarApplication {
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	public ProblemDetails handleBusinessException(BusinessException businessException){
 		ProblemDetails problemDetails = new ProblemDetails();
-		problemDetails.setMessage("VALIDATION.EXCEPTION");
+		problemDetails.setMessage(businessException.getMessage());
 		return problemDetails;
 	}
 
@@ -37,7 +37,7 @@ public class RentACarApplication {
 	public ProblemDetails handleValidationException(MethodArgumentNotValidException methodArgumentNotValidException){
 		ValidationProblemDetails validationProblemDetails = new ValidationProblemDetails();
 		validationProblemDetails.setMessage("VALIDATION.EXCEPTION");
-		validationProblemDetails.setValidationErrors(new HashMap<String,String>());
+		validationProblemDetails.setValidationErrors(new HashMap<>());
 
 		for(FieldError fieldError:methodArgumentNotValidException.getBindingResult().getFieldErrors()){
 			validationProblemDetails.getValidationErrors().put(fieldError.getField(),fieldError.getDefaultMessage());

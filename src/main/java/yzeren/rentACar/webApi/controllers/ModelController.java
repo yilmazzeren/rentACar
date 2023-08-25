@@ -23,7 +23,7 @@ public class ModelController {
 
     @PostMapping()
     @ResponseStatus(code = HttpStatus.CREATED)
-    public void add(@Valid CreateModelRequest createModelRequest){
+    public void add( CreateModelRequest createModelRequest){
         this.modelService.add(createModelRequest);
     }
 }
