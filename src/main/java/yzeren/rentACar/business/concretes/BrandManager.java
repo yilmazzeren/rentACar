@@ -7,6 +7,7 @@ import yzeren.rentACar.business.requests.CreateBrandRequest;
 import yzeren.rentACar.business.requests.UpdateBrandRequest;
 import yzeren.rentACar.business.responses.GetAllBrandsResponse;
 import yzeren.rentACar.business.responses.GetByIdBrandResponse;
+import yzeren.rentACar.business.rules.BrandBusinessRules;
 import yzeren.rentACar.core.utilities.mappers.ModelMapperService;
 import yzeren.rentACar.dataAccess.abstracts.BrandRepository;
 import yzeren.rentACar.entities.concretes.Brand;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 public class BrandManager implements BrandService {
     private BrandRepository brandRepository;
     private ModelMapperService modelMapperService;
+    private BrandBusinessRules brandBusinessRules;
     @Override
     public List<GetAllBrandsResponse> getAll() {
         List<Brand> brands = brandRepository.findAll();
@@ -39,7 +41,7 @@ public class BrandManager implements BrandService {
 
     @Override
     public void add(CreateBrandRequest createBrandRequest) {
-
+        this.brandBusinessRules.checkIfBrandNameExists(createBrandRequest.getName());
         Brand brand = this.modelMapperService.forRequest().map(createBrandRequest,Brand.class); // createBrandRequest'i brand tipine çevir. aslında brand class'ını newleyip bize veriyor
         this.brandRepository.save(brand);
     }

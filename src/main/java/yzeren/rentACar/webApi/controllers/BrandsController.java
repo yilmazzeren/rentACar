@@ -1,5 +1,6 @@
 package yzeren.rentACar.webApi.controllers;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,7 @@ public class BrandsController {
     }
     @PostMapping()
     @ResponseStatus(code= HttpStatus.CREATED)
-    public void add(CreateBrandRequest createBrandRequest){
+    public void add(@Valid CreateBrandRequest createBrandRequest){
         this.brandService.add(createBrandRequest);
     }
 
